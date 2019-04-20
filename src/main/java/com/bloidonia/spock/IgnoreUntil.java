@@ -14,10 +14,19 @@ import java.lang.annotation.Target;
 @ExtensionAnnotation(IgnoreUntilExtension.class)
 public @interface IgnoreUntil {
 
+    /**
+     * @return The date to ignore the feature or spec until (max 30 days from now)
+     */
     String date();
 
+    /**
+     * @return By default, we will fail when this has expired, change to false to just run the test
+     */
     boolean failAfter() default true;
 
+    /**
+     * @return This is just for documenting why you ignored the test, and is not used
+     */
     String message() default "";
 
 }

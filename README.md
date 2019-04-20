@@ -1,3 +1,7 @@
+Include in your gradle build with:
+
+    testCompile("com.bloidonia:spock-ignoreuntil:0.1")
+
 If you find `@Ignore` to be too fee and loose, and have had times when specs are `@Ignore`d and then forgotten, this might work for you:
 
 Allows you to ignore specs or features with an end date, eg...

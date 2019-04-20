@@ -21,11 +21,23 @@ dependencies {
     testImplementation("junit:junit:4.12")
 }
 
+tasks.register<Jar>("sourcesJar") {
+    from(sourceSets.main.get().allJava)
+    archiveClassifier.set("sources")
+}
+
+tasks.register<Jar>("javadocJar") {
+    from(tasks.javadoc)
+    archiveClassifier.set("javadoc")
+}
+
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             pom {
                 from(components["java"])
+                artifact(tasks["sourcesJar"])
+                artifact(tasks["javadocJar"])
                 name.set("IgnoreUntil Spock Extension")
                 description.set("Allows an end date within 30 days to be specified for an ignored spec or feature")
                 url.set("https://github.com/timyates/spock-ignoreuntil")
@@ -43,7 +55,7 @@ publishing {
                     }
                 }
                 scm {
-                    connection.set("scm:git:git://github.com/timyates/spock-ignoreuntil.git")
+                    url.set("https://github.com/timyates/spock-ignoreuntil.git")
                 }
             }
         }
