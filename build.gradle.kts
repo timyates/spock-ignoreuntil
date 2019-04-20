@@ -1,5 +1,6 @@
 plugins {
     `maven-publish`
+    signing
     `java-library`
     groovy
 }
@@ -24,6 +25,7 @@ publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             pom {
+                from(components["java"])
                 name.set("IgnoreUntil Spock Extension")
                 description.set("Allows an end date within 30 days to be specified for an ignored spec or feature")
                 url.set("https://github.com/timyates/spock-ignoreuntil")
@@ -46,4 +48,19 @@ publishing {
             }
         }
     }
+    repositories {
+        maven {
+            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = findProperty("sonatypeUsername")!!.toString()
+                password = findProperty("sonatypePassword")!!.toString()
+            }
+        }
+    }
+
 }
+
+signing {
+    sign(publishing.publications["mavenJava"])
+}
+

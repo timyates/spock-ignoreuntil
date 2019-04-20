@@ -19,3 +19,5 @@ You can change this to make it just run the spec or feature by passing the `fail
         expect:
         1 != 1
     }
+
+Built against spock 1.2-groovy-2.5 and Groovy 2.5.6
