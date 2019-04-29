@@ -5,7 +5,7 @@ plugins {
     groovy
 }
 
-version = "0.1"
+version = "1.0"
 group = "com.bloidonia"
 
 repositories {
@@ -15,6 +15,7 @@ repositories {
 dependencies {
     implementation("org.spockframework:spock-core:1.2-groovy-2.5")
     implementation("org.codehaus.groovy:groovy-all:2.5.6")
+    implementation("org.codenarc:CodeNarc:1.3")
 
     testImplementation("org.jetbrains:annotations:13.0")
     testImplementation("org.spockframework:spock-core:1.2-groovy-2.5")
@@ -29,6 +30,10 @@ tasks.register<Jar>("sourcesJar") {
 tasks.register<Jar>("javadocJar") {
     from(tasks.javadoc)
     archiveClassifier.set("javadoc")
+}
+
+tasks.getByName("publish") {
+    dependsOn("check")
 }
 
 publishing {
@@ -64,8 +69,8 @@ publishing {
         maven {
             url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
-                username = findProperty("sonatypeUsername")!!.toString()
-                password = findProperty("sonatypePassword")!!.toString()
+                username = findProperty("sonatypeUsername")?.toString() ?: ""
+                password = findProperty("sonatypePassword")?.toString() ?: ""
             }
         }
     }

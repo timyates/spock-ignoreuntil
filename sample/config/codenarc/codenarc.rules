@@ -1,0 +1,3 @@
+ruleset {
+    ruleset('rulesets/codenarc-ignore.xml')
+}
