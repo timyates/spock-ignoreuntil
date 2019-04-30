@@ -5,7 +5,7 @@ plugins {
     groovy
 }
 
-version = "1.0"
+version = "1.1"
 group = "com.bloidonia"
 
 repositories {

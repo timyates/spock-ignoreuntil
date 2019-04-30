@@ -10,12 +10,12 @@ import java.time.ZoneOffset;
 public final class IgnoreUntilExtension extends AbstractAnnotationDrivenExtension<IgnoreUntil> {
 
     private static boolean dateValid(IgnoreUntil ignoreUntil) {
-        LocalDate parse = LocalDate.parse(ignoreUntil.date());
+        LocalDate parse = LocalDate.parse(ignoreUntil.value());
         LocalDate now = LocalDate.now(ZoneOffset.UTC);
         if (parse.isAfter(now.plusDays(30))) {
             throw new IgnoreUntilTooFarInTheFutureException(parse);
         }
-        return ignoreUntil.date().isEmpty() || parse.isAfter(now);
+        return parse.isAfter(now);
     }
 
     @Override
@@ -47,7 +47,7 @@ public final class IgnoreUntilExtension extends AbstractAnnotationDrivenExtensio
     public static final class IgnoreUntilTooFarInTheFutureException extends RuntimeException {
 
         IgnoreUntilTooFarInTheFutureException(LocalDate parse) {
-            super(parse + " is nivalid, as it is more than 30 days in the future.");
+            super(parse + " is invalid, as it is more than 30 days in the future.");
         }
 
     }

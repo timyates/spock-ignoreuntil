@@ -16,7 +16,7 @@ class IgnoreUntilSpec extends Specification {
         runSpec """
             class Spec extends Specification {
             
-                @IgnoreUntil(date = "2100-09-01")
+                @IgnoreUntil("2100-09-01")
                 def "test"() {
                     expect:
                     1 != 1
@@ -31,7 +31,7 @@ class IgnoreUntilSpec extends Specification {
     def "cannot ignore specifications more than 30 days"() {
         when:
         runSpec """
-            @IgnoreUntil(date = "2100-09-01")
+            @IgnoreUntil("2100-09-01")
             class Spec extends Specification {
             
                 def "test"() {
@@ -50,7 +50,7 @@ class IgnoreUntilSpec extends Specification {
         runSpec """
             class Spec extends Specification {
 
-                @IgnoreUntil(date = "${LocalDate.now(ZoneOffset.UTC).plusDays(3).toString()}")
+                @IgnoreUntil("${LocalDate.now(ZoneOffset.UTC).plusDays(3).toString()}")
                 def "I would fail"() {
                     expect:
                     1 != 1
@@ -66,7 +66,7 @@ class IgnoreUntilSpec extends Specification {
     def "ignoring works for specs"() {
         when:
         runSpec """
-            @IgnoreUntil(date = "${LocalDate.now(ZoneOffset.UTC).plusDays(3).toString()}")
+            @IgnoreUntil("${LocalDate.now(ZoneOffset.UTC).plusDays(3).toString()}")
             class Spec extends Specification {
 
                 def "I would fail"() {
@@ -84,7 +84,7 @@ class IgnoreUntilSpec extends Specification {
     def "ignoring is inherited"() {
         when:
         runSpec """
-            @IgnoreUntil(date = "${LocalDate.now(ZoneOffset.UTC).plusDays(3).toString()}")
+            @IgnoreUntil("${LocalDate.now(ZoneOffset.UTC).plusDays(3).toString()}")
             class Base extends Specification {
             }
             
@@ -107,7 +107,7 @@ class IgnoreUntilSpec extends Specification {
         runSpec """
             class Spec extends Specification {
             
-                @IgnoreUntil(date = "2019-01-01")
+                @IgnoreUntil("2019-01-01")
                 def "I would fail"() {
                     expect:
                     1 != 1
@@ -125,7 +125,7 @@ class IgnoreUntilSpec extends Specification {
         runSpec """
             class Spec extends Specification {
             
-                @IgnoreUntil(date = "2019-01-01", failAfter = false)
+                @IgnoreUntil(value = "2019-01-01", failAfter = false)
                 def "I would fail"() {
                     expect:
                     1 != 1

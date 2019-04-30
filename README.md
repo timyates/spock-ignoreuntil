@@ -15,13 +15,13 @@ After that time, by default, it will fail the build.  You can set an annotation 
 
 Include in your gradle build with:
 
-    testImplementation("com.bloidonia:spock-ignoreuntil:1.0")
+    testImplementation("com.bloidonia:spock-ignoreuntil:1.1")
 
 #### Usage
 
 Ignore a specification
 
-    @IgnoreUntil(date = "2019-05-15")
+    @IgnoreUntil("2019-05-15")
     class MyTests extends Specification
         def "I would fail"() {
             expect:
@@ -32,7 +32,7 @@ Ignore a specification
 Ignore a feature
 
     class MyTests extends Specification
-        @IgnoreUntil(date = "2019-05-15")
+        @IgnoreUntil("2019-05-15")
         def "I would fail"() {
             expect:
             1 != 1
@@ -46,7 +46,7 @@ By default, on expiry, the spec or feature will fail with an `IgnoreUntilExpired
 You can change this to make it just run the spec or feature by passing the `failAfter = false` to the annotation, ie:
 
     class MyTests extends Specification
-        @IgnoreUntil(date = "2019-05-15", failAfter = false)
+        @IgnoreUntil(value = "2019-05-15", failAfter = false)
         def "I will run after the 15th May"() {
             expect:
             1 != 1
@@ -60,7 +60,7 @@ You can change this to make it just run the spec or feature by passing the `fail
 If you use this spock extension, you may want to ban the use of `@Ignore` from your build.
 If you use Codenarc, you can do this by adding the following to your dependencies:
 
-    codenarc("com.bloidonia:spock-ignoreuntil:1.0")
+    codenarc("com.bloidonia:spock-ignoreuntil:1.1")
 
 And then this to your rules configuration file:
 
@@ -72,3 +72,12 @@ Then usage of any of the `@Ignore` annotations (Spock, JUnit, etc) will fail wit
 
 If you're using Gradle, and a test outcome is cached, then it will not be executed if none of the inputs to the tests have changed.
 This means that a test may remain effectively ignored beyond the specified end date.
+
+### Releases
+
+1.1
+  - Change to using `value` in the annotation (so we don't need `date =` everywhere)
+  - Fix spelling in "over 30 days" error message
+
+1.0
+  - First version 

@@ -17,7 +17,7 @@ public @interface IgnoreUntil {
     /**
      * @return The date to ignore the feature or spec until (max 30 days from now)
      */
-    String date();
+    String value();
 
     /**
      * @return By default, we will fail when this has expired, change to false to just run the test
